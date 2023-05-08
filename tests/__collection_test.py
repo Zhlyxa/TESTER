@@ -32,6 +32,10 @@ def tests() -> None:
 
         return str(Person(data['name'],data['hobby']))
 
+    @test_case([(1,2,3),(2,3,3)],[1,512])
+    def test5(number1,number2,number3):
+        return number1 ** number2 ** number3
+
     test1(number1=..., number2=...)
     test2(key=..., value=...)
     test3(name=...)
