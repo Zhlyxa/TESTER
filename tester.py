@@ -1,6 +1,6 @@
 class NotCorrectConstruction(Exception):
     def __init__(self) -> None:
-        self.comments = 'некоректный ввод конструкции аргументов'
+        self.comments = 'некоректный ввод конструкции аргументов / not correct construction arguments'
 
     def __str__(self) -> str:
         return self.comments
