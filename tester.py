@@ -1,10 +1,4 @@
-class NotCorrectConstruction(Exception):
-    def __init__(self) -> None:
-        self.comments = 'некоректный ввод конструкции аргументов / not correct construction arguments'
-
-    def __str__(self) -> str:
-        return self.comments
-
+import time
 
 def test_case(listArgs: list = [], listResult: list = []):
     """
@@ -26,22 +20,27 @@ def test_case(listArgs: list = [], listResult: list = []):
         If there is only one argument, it is in the format [(values,),...].
         listRes: all the output results are entered in the format [values,...].
     """
-
-    if not all([True if type(x) == tuple and len(listArgs) != 1 else False for x in listArgs]):
-        raise NotCorrectConstruction()
-
-    def test_case_decorator(function):
+    def decorator(function):
         def _wraper(*arguments, **kwargs):
             result = 0
             tp = ''
             for enum, args in enumerate(listArgs):
-                print(tp := 'Test passed V') if function(
-                    *args) == listResult[enum] else print(tp := 'Test failed X')
-
-                if tp[-1] == 'X':
+                try:
+                    start_time = time.time()
+                    result_func = function(*args)
+                    end_time = time.time()
+                    if result_func == listResult[enum]:
+                        tp = f'Test passed V: time of execution: {end_time-start_time}'
+                    else:
+                        tp = 'Test failure X'
+                        result -= 1
+                except Exception as e:
+                    tp = f'Test failure X: {str(e)}'
                     result -= 1
+
+                print(tp)
 
             print(
                 f'result run test: passed {len(listResult)+result}, failure {-result}')
         return _wraper
-    return test_case_decorator
+    return decorator
