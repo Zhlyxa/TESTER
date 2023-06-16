@@ -44,3 +44,5 @@ def test_case(listArgs: list = [], listResult: list = []):
                 f'result run test: passed {len(listResult)+result}, failure {-result}')
         return _wraper
     return decorator
+
+
